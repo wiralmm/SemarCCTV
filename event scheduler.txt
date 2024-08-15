@@ -1,0 +1,17 @@
+untuk menghidupkan
+SET GLOBAL event_scheduler = ON;
+
+Untuk mengecek apakah event scheduler telah berjalan atau tidak, Anda dapat menggunakan perintah
+SHOW PROCESSLIST atau SHOW EVENTS.
+
+cara menghapus events
+DROP EVENT IF EXISTS nama_database.nama_event;
+
+..............................................
+membuat event hapus pesanan yang sudah lebih dari 2m dengan bukti pembayaran yang bernilai kosong
+CREATE EVENT hapus_pesanan
+ON SCHEDULE EVERY 4 MINUTE
+DO
+  DELETE FROM pesanan
+  WHERE waktu < DATE_ADD(NOW(), INTERVAL -5 MINUTE) AND bukti_pembayaran IS NULL;
+
